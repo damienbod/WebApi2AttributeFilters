@@ -79,5 +79,14 @@ namespace WebApi2Attributes.Controllers
         {
             return new string[] { "value1", data };
         }
+
+        [PropertyInjectionDebugActionWebApiFilter]
+        [RouteAttribute("test6")]
+        [AcceptVerbs("GET")]
+        [ActionEditDataDebugActionWebApiFilter]
+        public IEnumerable<string> PropertyInjectionAttributeActionsDebugAttribute()
+        {
+            return new string[] { "value1" };
+        }
     }
 }

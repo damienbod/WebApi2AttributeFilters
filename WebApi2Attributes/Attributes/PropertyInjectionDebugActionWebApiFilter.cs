@@ -2,21 +2,18 @@
 using System.Net.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using Microsoft.Practices.Unity;
 
 namespace WebApi2Attributes.Attributes
 {
-    public class ActionEditDataDebugActionWebApiFilter : ActionFilterAttribute
+    public class PropertyInjectionDebugActionWebApiFilter : ActionFilterAttribute
     {
+        [Dependency]
+        internal IDummyBusinessClass MyDummyBusinessClass { get; set; }
+
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
-            object data = "";
-            if(actionContext.ActionArguments.TryGetValue("data", out data))
-            {
-                data = data + "Injected!";
-                actionContext.ActionArguments["data"] = data;
-            }
-            // pre-processing
-            Debug.WriteLine("ACTION 1 DEBUG pre-processing logging");
+            Debug.WriteLine("ACTION 1 DEBUG pre-processing logging and IoC:" + MyDummyBusinessClass.GetSomething());
         }
 
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
